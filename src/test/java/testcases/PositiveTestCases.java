@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 public class PositiveTestCases {
 
+	// Valid email and password
     @Test
     public void testCase1() {
         // Correct Base URI
@@ -16,22 +17,22 @@ public class PositiveTestCases {
 
         // Correct request body
         JSONObject request = new JSONObject();
-        request.put("email", "eve.holt@reqres.in");  // Valid email from Reqres
-        request.put("password", "cityslicka");       // Valid password from Reqres
+        request.put("email", "eve.holt@reqres.in");  
+        request.put("password", "cityslicka");       
 
         // Send POST request
         Response response =
             RestAssured.given()
-                .contentType(ContentType.JSON)  // Set Content-Type
-                .body(request.toJSONString())   // Attach request body
+                .contentType(ContentType.JSON)  
+                .body(request.toJSONString())  
             .when()
-                .post("/login")  // Correct API endpoint
+                .post("/login")  
             .then()
-                .statusCode(200)  // Ensure 200 OK response
-                .log().all()      // Log response
+                .statusCode(200) 
+                .log().all()     
                 .extract().response();
 
-        // Validate response contains token
+       
         Assert.assertNotNull(response.jsonPath().getString("token"), "Token is missing in response");
     }
 }
